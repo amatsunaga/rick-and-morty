@@ -17,14 +17,14 @@ const CardPersonagem = ({ personagem }) => {
 
   const { favoritos } = useSelector((store) => store.personagem);
 
-  const index = favoritos.indexOf(personagem);
+  const index = favoritos.indexOf(personagem.id);
   let isFavorito = null;
   index < 0 ? (isFavorito = false) : (isFavorito = true);
 
   function toggleFavorite() {
     isFavorito
       ? dispatch(removeFavoriteAction(index))
-      : dispatch(addFavoriteAction(personagem));
+      : dispatch(addFavoriteAction(personagem.id));
   }
 
   return (

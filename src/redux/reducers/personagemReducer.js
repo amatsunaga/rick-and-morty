@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
   personagens: [],
-  favoritos: [],
+  favoritos: localStorage.getItem("favoritos")
+    ? JSON.parse(localStorage.getItem("favoritos"))
+    : [],
 };
 
 export function personagemReducer(state = INITIAL_STATE, action) {
@@ -15,12 +17,15 @@ export function personagemReducer(state = INITIAL_STATE, action) {
     }
 
     case "ADD_FAVORITE": {
-      newState.favoritos.push(action.payload);
+      console.log(newState.favoritos);
+      newState.favoritos.push(action.id);
+      localStorage.setItem("favoritos", JSON.stringify(newState.favoritos));
       return { ...newState };
     }
 
     case "REMOVE_FAVORITE": {
-      newState.favoritos.splice(action.index, 1)
+      newState.favoritos.splice(action.index, 1);
+      localStorage.setItem("favoritos", JSON.stringify(newState.favoritos));
       return { ...newState };
     }
 

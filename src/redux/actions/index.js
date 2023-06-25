@@ -7,10 +7,10 @@ export function getAllCharactersAction(payload) {
   };
 }
 
-export function addFavoriteAction(payload) {
+export function addFavoriteAction(id) {
   return {
     type: "ADD_FAVORITE",
-    payload,
+    id,
   };
 }
 
