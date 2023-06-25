@@ -1,4 +1,7 @@
 import "./botao-favorito.css";
+import starFull from "../../assets/star-full.svg";
+import starEmpty from "../../assets/star-empty.svg";
+
 /**
  * Botão que indica se um elemento é favorito ou não, e dá a possibilidade de marcá-lo/desmarcá-lo
  *
@@ -8,7 +11,7 @@ import "./botao-favorito.css";
  * @returns Elemento JSX
  */
 const BotaoFavorito = ({ isFavorito, onClick }) => {
-  const src = isFavorito ? "/imagenes/star-filled.png" : "/imagenes/star.png";
+  const src = isFavorito ? starFull : starEmpty;
 
   return (
     <div className="botao-favorito">

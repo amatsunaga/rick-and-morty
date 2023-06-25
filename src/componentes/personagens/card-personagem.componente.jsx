@@ -9,15 +9,12 @@ import "./card-personagem.css";
  *
  * @returns Elemento JSX
  */
-const CardPersonagem = () => {
+const CardPersonagem = ({ personagem }) => {
   return (
     <div className="card-personagem">
-      <img
-        src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-        alt="Rick Sanchez"
-      />
+      <img src={personagem?.image} alt="Rick Sanchez" />
       <div className="card-personagem-body">
-        <span>Rick Sanchez</span>
+        <span>{personagem?.name}</span>
         <BotaoFavorito isFavorito={false} />
       </div>
     </div>
