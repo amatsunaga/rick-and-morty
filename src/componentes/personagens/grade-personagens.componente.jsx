@@ -30,9 +30,6 @@ const GradePersonagem = () => {
       {personagens.map((personagem) => (
         <CardPersonagem key={personagem.id} personagem={personagem} />
       ))}
-      <CardPersonagem />
-      <CardPersonagem />
-      <CardPersonagem />
     </div>
   );
 };

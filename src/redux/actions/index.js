@@ -3,23 +3,23 @@ import axios from "axios";
 export function getAllCharactersAction(payload) {
   return {
     type: "GET_CHARACTERS",
-    payload: payload,
+    payload,
   };
 }
 
-// export function addFavorite(payload) {
-//   return {
-//     type: "ADD_FAVORITE",
-//     payload,
-//   };
-// }
+export function addFavoriteAction(payload) {
+  return {
+    type: "ADD_FAVORITE",
+    payload,
+  };
+}
 
-// export function removeFavorite(payload) {
-//   return {
-//     type: "REMOVE_FAVORITE",
-//     payload: payload,
-//   };
-// }
+export function removeFavoriteAction(index) {
+  return {
+    type: "REMOVE_FAVORITE",
+    index
+  };
+}
 
 export const fetchCharacters = (page) => {
   return async (dispatch) => {
