@@ -15,15 +15,15 @@ import { useSelector } from "react-redux";
 const CardPersonagem = ({ personagem }) => {
   const dispatch = useDispatch();
 
-  const { favoritos } = useSelector((store) => store.personagem);
+  const { favoriteIds } = useSelector((store) => store.personagem);
 
-  const index = favoritos.indexOf(personagem.id);
+  const index = favoriteIds.indexOf(personagem.id);
   let isFavorito = null;
   index < 0 ? (isFavorito = false) : (isFavorito = true);
 
   function toggleFavorite() {
     isFavorito
-      ? dispatch(removeFavoriteAction(index))
+      ? dispatch(removeFavoriteAction(index, personagem.id))
       : dispatch(addFavoriteAction(personagem.id));
   }
 
@@ -32,10 +32,7 @@ const CardPersonagem = ({ personagem }) => {
       <img src={personagem?.image} alt="Rick Sanchez" />
       <div className="card-personagem-body">
         <span>{personagem?.name}</span>
-        <BotaoFavorito
-          isFavorito={isFavorito}
-          onClick={toggleFavorite}
-        />
+        <BotaoFavorito isFavorito={isFavorito} onClick={toggleFavorite} />
       </div>
     </div>
   );

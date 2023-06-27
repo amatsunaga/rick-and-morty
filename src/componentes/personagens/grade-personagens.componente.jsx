@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { fetchCharacters } from "../../redux/actions";
 import CardPersonagem from "./card-personagem.componente";
 import "./grade-personagem.css";
-import { useEffect } from "react";
+
+import { useState, useEffect } from "react";
 
 /**
  * Grade de personagens para a página inicial
@@ -12,24 +11,26 @@ import { useEffect } from "react";
  *
  * @returns Elemento JSX
  */
-const GradePersonagem = () => {
-  const dispatch = useDispatch();
+const GradePersonagem = ({ personagens }) => {
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { personagens } = useSelector((store) => store.personagem);
-
-  function getCharacters() {
-    dispatch(fetchCharacters());
-  }
-
-  useEffect(() => getCharacters(), []);
-
-  console.log("GradePersonagem:", personagens);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
 
   return (
     <div className="grade-personagens">
-      {personagens.map((personagem) => (
-        <CardPersonagem key={personagem.id} personagem={personagem} />
-      ))}
+      {isLoading ? (
+        <h2>Carregando personagens...</h2>
+      ) : personagens.length > 0 ? (
+        personagens.map((personagem) => (
+          <CardPersonagem key={personagem.id} personagem={personagem} />
+        ))
+      ) : (
+        <h2>Não há personagens favoritos selecionados</h2>
+      )}
     </div>
   );
 };

@@ -7,6 +7,13 @@ export function getAllCharactersAction(payload) {
   };
 }
 
+export function getFavoriteCharactersAction(payload) {
+  return {
+    type: "GET_FAVORITE",
+    payload,
+  };
+}
+
 export function addFavoriteAction(id) {
   return {
     type: "ADD_FAVORITE",
@@ -14,10 +21,10 @@ export function addFavoriteAction(id) {
   };
 }
 
-export function removeFavoriteAction(index) {
+export function removeFavoriteAction(index, personagemId) {
   return {
     type: "REMOVE_FAVORITE",
-    index
+    payload: { index, personagemId },
   };
 }
 
@@ -28,5 +35,17 @@ export const fetchCharacters = (page) => {
     );
 
     dispatch(getAllCharactersAction(response.data));
+  };
+};
+
+export const fetchFavorite = (favorite) => {
+  return async (dispatch) => {
+    if (favorite.length > 0) {
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/${favorite}`
+      );
+
+      dispatch(getFavoriteCharactersAction(response.data));
+    }
   };
 };

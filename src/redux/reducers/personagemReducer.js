@@ -1,12 +1,15 @@
 const INITIAL_STATE = {
   personagens: [],
-  favoritos: localStorage.getItem("favoritos")
+  favoriteIds: localStorage.getItem("favoritos")
     ? JSON.parse(localStorage.getItem("favoritos"))
     : [],
+  favoriteCharacters: [],
 };
 
 export function personagemReducer(state = INITIAL_STATE, action) {
   const newState = { ...state };
+  const newFavoriteIds = newState.favoriteIds;
+  const newFavoriteCharacters = newState.favoriteCharacters;
 
   switch (action.type) {
     case "GET_CHARACTERS": {
@@ -16,17 +19,32 @@ export function personagemReducer(state = INITIAL_STATE, action) {
       };
     }
 
+    case "GET_FAVORITE": {
+      return {
+        ...state,
+        favoriteCharacters: action.payload,
+        // action.payload.length > 1 ? [...action.payload] : action.payload,
+      };
+    }
+
     case "ADD_FAVORITE": {
-      console.log(newState.favoritos);
-      newState.favoritos.push(action.id);
-      localStorage.setItem("favoritos", JSON.stringify(newState.favoritos));
-      return { ...newState };
+      newFavoriteIds.push(action.id);
+      localStorage.setItem("favoritos", JSON.stringify(newFavoriteIds));
+      return {
+        ...newState,
+      };
     }
 
     case "REMOVE_FAVORITE": {
-      newState.favoritos.splice(action.index, 1);
-      localStorage.setItem("favoritos", JSON.stringify(newState.favoritos));
-      return { ...newState };
+      newFavoriteIds.splice(action.payload.index, 1);
+      const editedFavorites = newFavoriteCharacters.filter(
+        (object) => object.id !== action.payload.personagemId
+      );
+      localStorage.setItem("favoritos", JSON.stringify(newFavoriteIds));
+      return {
+        ...newState,
+        favoriteCharacters: editedFavorites,
+      };
     }
 
     default: {

@@ -1,3 +1,4 @@
 export const GET_CHARACTERS = "@GET_CHARACTERS";
+export const GET_FAVORITE = "@GET_FAVORITE";
 export const ADD_FAVORITE = "@ADD_FAVORITE";
 export const REMOVE_FAVORITE = "@REMOVE_FAVORITE";
