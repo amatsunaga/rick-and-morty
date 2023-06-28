@@ -7,9 +7,29 @@ export function getAllCharactersAction(payload) {
   };
 }
 
+export function getFilteredCharactersAction(filteredCharacters, error) {
+  return {
+    type: "GET_FILTERED",
+    payload: { filteredCharacters, error },
+  };
+}
+
+export function addFilterAction(byName) {
+  return {
+    type: "ADD_FILTER",
+    payload: { byName },
+  };
+}
+
+// export function removeFilterAction() {
+//   return {
+//     type: "REMOVE_FILTER",
+//   };
+// }
+
 export function getFavoriteCharactersAction(payload) {
   return {
-    type: "GET_FAVORITE",
+    type: "GET_FAVORITES",
     payload,
   };
 }
@@ -38,11 +58,25 @@ export const fetchCharacters = (page) => {
   };
 };
 
-export const fetchFavorite = (favorite) => {
+export const fetchFiltered = (filters) => {
   return async (dispatch) => {
-    if (favorite.length > 0) {
+    try {
       const response = await axios.get(
-        `https://rickandmortyapi.com/api/character/${favorite}`
+        `https://rickandmortyapi.com/api/character/?name=${filters}`
+      );
+
+      dispatch(getFilteredCharactersAction(response.data, null));
+    } catch (err) {
+      dispatch(getFilteredCharactersAction([], err));
+    }
+  };
+};
+
+export const fetchFavorites = (favoritesIds) => {
+  return async (dispatch) => {
+    if (favoritesIds.length > 0) {
+      const response = await axios.get(
+        `https://rickandmortyapi.com/api/character/${favoritesIds}`
       );
 
       dispatch(getFavoriteCharactersAction(response.data));

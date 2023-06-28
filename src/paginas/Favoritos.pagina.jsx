@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import GradePersonagens from "../componentes/personagens/grade-personagens.componente";
-import { fetchFavorite } from "../redux/actions";
+import { fetchFavorites } from "../redux/actions";
 
 /**
  * Esta é a página de favoritos. Aqui você deve ver todos os personagens marcados como favoritos
@@ -14,22 +14,21 @@ import { fetchFavorite } from "../redux/actions";
 const PaginaFavoritos = () => {
   const dispatch = useDispatch();
 
-  const { favoriteIds, favoriteCharacters } = useSelector(
+  const { favoritesIds, favoriteCharacters } = useSelector(
     (store) => store.personagem
   );
 
-  function getFavorite() {
-    dispatch(fetchFavorite(favoriteIds));
+  function getFavorites() {
+    dispatch(fetchFavorites(favoritesIds));
   }
 
   useEffect(() => {
-    if (favoriteIds) {
-      getFavorite();
+    if (favoritesIds) {
+      getFavorites();
     }
   }, []);
 
-  console.log("FavoriteIds:", favoriteIds);
-  console.log("FavoriteCharacters:", favoriteCharacters);
+  const favoritesNotFound = "Não foram encontrados personagens favoritos";
 
   return (
     <div className="container">
@@ -37,7 +36,10 @@ const PaginaFavoritos = () => {
         <h3>Personagens Favoritos</h3>
         <button className="danger">Test Button</button>
       </div>
-      <GradePersonagens personagens={favoriteCharacters} />
+      <GradePersonagens
+        personagens={favoriteCharacters}
+        message={favoritesNotFound}
+      />
     </div>
   );
 };

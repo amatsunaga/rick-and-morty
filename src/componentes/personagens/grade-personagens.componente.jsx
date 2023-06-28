@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import CardPersonagem from "./card-personagem.componente";
 import "./grade-personagem.css";
 
@@ -11,14 +12,8 @@ import { useState, useEffect } from "react";
  *
  * @returns Elemento JSX
  */
-const GradePersonagem = ({ personagens }) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+const GradePersonagem = ({ personagens, message }) => {
+  const { isLoading } = useSelector((store) => store.personagem);
 
   return (
     <div className="grade-personagens">
@@ -29,7 +24,7 @@ const GradePersonagem = ({ personagens }) => {
           <CardPersonagem key={personagem.id} personagem={personagem} />
         ))
       ) : (
-        <h2>Não há personagens favoritos selecionados</h2>
+        <h2>{message}</h2>
       )}
     </div>
   );

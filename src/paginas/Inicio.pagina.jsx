@@ -3,7 +3,7 @@ import GradePersonagens from "../componentes/personagens/grade-personagens.compo
 import Paginacao from "../componentes/paginacao/paginacao.componente";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { fetchCharacters } from "../redux/actions";
+import { fetchCharacters, fetchFiltered } from "../redux/actions";
 import { useEffect } from "react";
 
 /**
@@ -17,15 +17,25 @@ import { useEffect } from "react";
 const PaginaInicio = () => {
   const dispatch = useDispatch();
 
-  const { personagens } = useSelector((store) => store.personagem);
+  const { characters, filters } = useSelector((store) => store.personagem);
+
+  function filterCharacters() {
+    dispatch(fetchFiltered(filters.byName));
+  }
 
   function getCharacters() {
     dispatch(fetchCharacters());
   }
 
-  useEffect(() => getCharacters(), []);
+  useEffect(() => {
+    if (filters) {
+      filterCharacters();
+    } else {
+      getCharacters();
+    }
+  }, [filters]);
 
-  console.log("GradePersonagem:", personagens);
+  const filterNotFound = "Não foram encontrados personagens com os filtros selecionados"
 
   return (
     <div className="container">
@@ -35,7 +45,7 @@ const PaginaInicio = () => {
       </div>
       <Filtros />
       <Paginacao />
-      <GradePersonagens personagens={personagens} />
+      <GradePersonagens personagens={characters} message={filterNotFound} />
       <Paginacao />
     </div>
   );

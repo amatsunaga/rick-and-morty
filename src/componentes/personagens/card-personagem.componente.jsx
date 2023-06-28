@@ -15,9 +15,9 @@ import { useSelector } from "react-redux";
 const CardPersonagem = ({ personagem }) => {
   const dispatch = useDispatch();
 
-  const { favoriteIds } = useSelector((store) => store.personagem);
+  const { favoritesIds } = useSelector((store) => store.personagem);
 
-  const index = favoriteIds.indexOf(personagem.id);
+  const index = favoritesIds.indexOf(personagem.id);
   let isFavorito = null;
   index < 0 ? (isFavorito = false) : (isFavorito = true);
 
