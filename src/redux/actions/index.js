@@ -1,6 +1,8 @@
 import axios from "axios";
 
 export function getAllCharactersAction(payload) {
+  // console.log("payload:", payload);
+
   return {
     type: "GET_CHARACTERS",
     payload,
@@ -54,9 +56,17 @@ export function removeAllFavoritesAction() {
   };
 }
 
+export function setCurrentPageAction(payload) {
+  return {
+    type: "SET_CURRENT_PAGE",
+    payload,
+  };
+}
+
 export const fetchCharacters = (page) => {
   return async (dispatch) => {
     const response = await axios.get(
+      // `https://rickandmortyapi.com/api/character/?page=2`
       `https://rickandmortyapi.com/api/character/?page=${page}`
     );
 

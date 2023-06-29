@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import CardPersonagem from "./card-personagem.componente";
 import "./grade-personagem.css";
 
-import { useState, useEffect } from "react";
 
 /**
  * Grade de personagens para a página inicial

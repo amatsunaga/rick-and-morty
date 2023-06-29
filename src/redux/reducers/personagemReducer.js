@@ -6,12 +6,14 @@ const INITIAL_STATE = {
     : [],
   favoriteCharacters: [],
   isLoading: true,
+  page: { current: 1, total: null },
 };
 
 export function personagemReducer(state = INITIAL_STATE, action) {
   const newState = { ...state };
   const newfavoritesIds = newState.favoritesIds;
   const newFavoriteCharacters = newState.favoriteCharacters;
+  const newPage = newState.page;
 
   switch (action.type) {
     case "GET_CHARACTERS": {
@@ -19,6 +21,7 @@ export function personagemReducer(state = INITIAL_STATE, action) {
         ...state,
         characters: [...action.payload.results],
         isLoading: false,
+        page: { ...newPage, total: action.payload.info.pages },
       };
     }
 
@@ -80,6 +83,13 @@ export function personagemReducer(state = INITIAL_STATE, action) {
         ...newState,
         favoritesIds: [],
         favoriteCharacters: { byName: "" },
+      };
+    }
+
+    case "SET_CURRENT_PAGE": {
+      return {
+        ...newState,
+        page: { current: action.payload },
       };
     }
 
