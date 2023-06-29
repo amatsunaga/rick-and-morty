@@ -75,6 +75,14 @@ export function personagemReducer(state = INITIAL_STATE, action) {
       };
     }
 
+    case "REMOVE_ALL_FAVORITES": {
+      return {
+        ...newState,
+        favoritesIds: [],
+        favoriteCharacters: { byName: "" },
+      };
+    }
+
     default: {
       return state;
     }

@@ -48,6 +48,12 @@ export function removeFavoriteAction(index, personagemId) {
   };
 }
 
+export function removeAllFavoritesAction() {
+  return {
+    type: "REMOVE_ALL_FAVORITES",
+  };
+}
+
 export const fetchCharacters = (page) => {
   return async (dispatch) => {
     const response = await axios.get(
