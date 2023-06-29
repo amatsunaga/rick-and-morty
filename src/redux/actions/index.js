@@ -21,11 +21,11 @@ export function addFilterAction(byName) {
   };
 }
 
-// export function removeFilterAction() {
-//   return {
-//     type: "REMOVE_FILTER",
-//   };
-// }
+export function removeFilterAction() {
+  return {
+    type: "REMOVE_FILTER",
+  };
+}
 
 export function getFavoriteCharactersAction(payload) {
   return {

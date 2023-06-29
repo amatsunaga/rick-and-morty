@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import "./cabecalho.css";
+import { useDispatch } from "react-redux";
+import { removeFilterAction } from "../../redux/actions";
 
 /**
  * Cabeçalho que contém os links para navegar entre as páginas
@@ -9,6 +11,12 @@ import "./cabecalho.css";
  * @returns {JSX.Element}
  */
 const Cabecalho = () => {
+  const dispatch = useDispatch();
+
+  function clearFilters() {
+    dispatch(removeFilterAction());
+  }
+
   return (
     <header>
       <div>
@@ -18,7 +26,9 @@ const Cabecalho = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Inicio</Link>
+              <Link to="/" onClick={() => clearFilters()}>
+                Inicio
+              </Link>
             </li>
             <li>
               <Link to="/favoritos">Favoritos</Link>

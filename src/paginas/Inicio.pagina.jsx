@@ -3,7 +3,11 @@ import GradePersonagens from "../componentes/personagens/grade-personagens.compo
 import Paginacao from "../componentes/paginacao/paginacao.componente";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { fetchCharacters, fetchFiltered } from "../redux/actions";
+import {
+  fetchCharacters,
+  fetchFiltered,
+  removeFilterAction,
+} from "../redux/actions";
 import { useEffect } from "react";
 
 /**
@@ -27,6 +31,10 @@ const PaginaInicio = () => {
     dispatch(fetchCharacters());
   }
 
+  function clearFilters() {
+    dispatch(removeFilterAction());
+  }
+
   useEffect(() => {
     if (filters) {
       filterCharacters();
@@ -35,13 +43,16 @@ const PaginaInicio = () => {
     }
   }, [filters]);
 
-  const filterNotFound = "Não foram encontrados personagens com os filtros selecionados"
+  const filterNotFound =
+    "Não foram encontrados personagens com os filtros selecionados";
 
   return (
     <div className="container">
       <div className="actions">
         <h3>Catálogo de Personagens</h3>
-        <button className="danger">Test Button</button>
+        <button className="danger" onClick={() => clearFilters()}>
+          Limpar Filtros
+        </button>
       </div>
       <Filtros />
       <Paginacao />

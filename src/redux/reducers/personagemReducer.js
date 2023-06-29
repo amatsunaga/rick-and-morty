@@ -39,12 +39,12 @@ export function personagemReducer(state = INITIAL_STATE, action) {
       };
     }
 
-    // case "REMOVE_FILTER": {
-    //   return {
-    //     ...newState,
-    //     filters: { byName: "" },
-    //   };
-    // }
+    case "REMOVE_FILTER": {
+      return {
+        ...newState,
+        filters: { byName: "" },
+      };
+    }
 
     case "GET_FAVORITES": {
       return {
