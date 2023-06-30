@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
 import { fetchCharacters, setCurrentPageAction } from "../../redux/actions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import "./paginacao.css";
 
 /**
@@ -11,16 +11,18 @@ import "./paginacao.css";
  * @returns Elemento JSX
  */
 const Paginacao = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { page } = useSelector((store) => store.personagem);
+  const { currentPage, pagesTotal } = useAppSelector(
+    (store) => store.personagem
+  );
 
   function goToPreviousPage() {
-    console.log(page.current);
+    console.log(currentPage);
 
-    if (page.current > 1) {
-      dispatch(fetchCharacters(page.current - 1));
-      dispatch(setCurrentPageAction(page.current - 1));
+    if (currentPage > 1) {
+      dispatch(fetchCharacters(currentPage - 1));
+      dispatch(setCurrentPageAction(currentPage - 1));
     }
 
     // Corrigir paginação com filtro
@@ -30,12 +32,12 @@ const Paginacao = () => {
   }
 
   function goToNextPage() {
-    console.log(page.current);
-    console.log(page.total);
+    console.log(currentPage);
+    console.log(pagesTotal);
 
-    if (page.current < page.total) {
-      dispatch(fetchCharacters(page.current + 1));
-      dispatch(setCurrentPageAction(page.current + 1));
+    if (currentPage < pagesTotal) {
+      dispatch(fetchCharacters(currentPage + 1));
+      dispatch(setCurrentPageAction(currentPage + 1));
     }
 
     // Corrigir paginação com filtro
@@ -47,14 +49,14 @@ const Paginacao = () => {
   return (
     <div className="paginacao">
       <button
-        disabled={page.current === 1 ? true : false}
+        disabled={currentPage === 1 ? true : false}
         className={"primary"}
         onClick={() => goToPreviousPage()}
       >
         Anterior
       </button>
       <button
-        disabled={page.current === page.total ? true : false}
+        disabled={currentPage === pagesTotal ? true : false}
         className={"primary"}
         onClick={() => goToNextPage()}
       >

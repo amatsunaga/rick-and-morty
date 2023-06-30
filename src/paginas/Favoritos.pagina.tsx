@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import GradePersonagens from "../componentes/personagens/grade-personagens.componente";
 import { fetchFavorites, removeAllFavoritesAction } from "../redux/actions";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 
 /**
  * Esta é a página de favoritos. Aqui você deve ver todos os personagens marcados como favoritos
@@ -12,9 +13,9 @@ import { fetchFavorites, removeAllFavoritesAction } from "../redux/actions";
  * @returns Página de favoritos
  */
 const PaginaFavoritos = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { favoritesIds, favoriteCharacters } = useSelector(
+  const { favoritesIds, favoriteCharacters } = useAppSelector(
     (store) => store.personagem
   );
 
