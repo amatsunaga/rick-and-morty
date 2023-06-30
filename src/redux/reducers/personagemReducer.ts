@@ -2,20 +2,20 @@ import { Action, State } from "./types";
 
 const INITIAL_STATE: State = {
   characters: [],
-  filters: { byName: "" },
+  filter: "",
   favoritesIds: localStorage.getItem("favoritos")
     ? JSON.parse(localStorage.getItem("favoritos") || "")
     : [],
   favoriteCharacters: [],
   isLoading: true,
-  page: { current: 1, total: 1 },
+  currentPage: 1,
+  pagesTotal: 1,
 };
 
 export function personagemReducer(state = INITIAL_STATE, action: Action) {
   const newState = { ...state };
   const newfavoritesIds = newState.favoritesIds;
   const newFavoriteCharacters = newState.favoriteCharacters;
-  const newPage = newState.page;
 
   switch (action.type) {
     case "GET_CHARACTERS": {
@@ -25,7 +25,7 @@ export function personagemReducer(state = INITIAL_STATE, action: Action) {
         ...state,
         characters: [...action.payload.results],
         isLoading: false,
-        page: { ...newPage, total: action.payload.info.pages },
+        pagesTotal: action.payload.info.pages,
       };
     }
 
@@ -42,14 +42,14 @@ export function personagemReducer(state = INITIAL_STATE, action: Action) {
     case "ADD_FILTER": {
       return {
         ...newState,
-        filters: { byName: action.payload.byName },
+        filter: action.payload.byName,
       };
     }
 
     case "REMOVE_FILTER": {
       return {
         ...newState,
-        filters: { byName: "" },
+        filter: "",
       };
     }
 
@@ -83,17 +83,19 @@ export function personagemReducer(state = INITIAL_STATE, action: Action) {
     }
 
     case "REMOVE_ALL_FAVORITES": {
+      localStorage.removeItem("favoritos");
+
       return {
-        ...newState,
+        ...state,
         favoritesIds: [],
-        favoriteCharacters: { byName: "" },
+        favoriteCharacters: [],
       };
     }
 
     case "SET_CURRENT_PAGE": {
       return {
         ...newState,
-        page: { current: action.payload },
+        currentPage: action.payload,
       };
     }
 

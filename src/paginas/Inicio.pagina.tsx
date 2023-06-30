@@ -1,14 +1,13 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import Paginacao from "../componentes/paginacao/paginacao.componente";
 import Filtros from "../componentes/personagens/filtros.componente";
 import GradePersonagens from "../componentes/personagens/grade-personagens.componente";
-import { useAppDispatch } from "../hooks/useAppDispatch";
 import {
   fetchCharacters,
   fetchFiltered,
   removeFilterAction,
 } from "../redux/actions";
+import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { RootState } from "../redux/store";
 
 /**
@@ -23,22 +22,19 @@ const PaginaInicio = () => {
   // console.log(JSON.parse(localStorage.getItem("favoritos")));
 
   const dispatch = useAppDispatch();
-  // const dispatch = useAppDispatch();
 
-  const {
-    characters,
-    filters,
-    page
-  } = useSelector((store: RootState) => store.personagem);
+  const { characters, filter, currentPage, pagesTotal } = useAppSelector(
+    (store: RootState) => store.personagem
+  );
 
   // console.log(filters.byName );
 
   function filterCharacters() {
-    dispatch(fetchFiltered(filters.byName));
+    dispatch(fetchFiltered(filter));
   }
 
   function getCharacters() {
-    dispatch(fetchCharacters(page.current));
+    dispatch(fetchCharacters(currentPage));
     // dispatch(fetchCharacters(1));
   }
 
@@ -47,12 +43,12 @@ const PaginaInicio = () => {
   }
 
   useEffect(() => {
-    if (filters.byName) {
+    if (filter) {
       filterCharacters();
     } else {
       getCharacters();
     }
-  }, [filters]);
+  }, [filter]);
 
   // Apenas console - APAGAR
   // useEffect(() => {

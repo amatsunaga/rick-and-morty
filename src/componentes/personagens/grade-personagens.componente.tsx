@@ -1,7 +1,7 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../redux/hooks";
+import { Character } from "../../redux/reducers/types";
 import CardPersonagem from "./card-personagem.componente";
 import "./grade-personagem.css";
-
 
 /**
  * Grade de personagens para a página inicial
@@ -11,8 +11,14 @@ import "./grade-personagem.css";
  *
  * @returns Elemento JSX
  */
-const GradePersonagem = ({ personagens, message }) => {
-  const { isLoading } = useSelector((store) => store.personagem);
+
+type PropTypes = {
+  personagens: Character[];
+  message: string;
+};
+
+const GradePersonagem = ({ personagens, message }: PropTypes) => {
+  const { isLoading } = useAppSelector((store) => store.personagem);
 
   return (
     <div className="grade-personagens">

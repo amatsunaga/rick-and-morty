@@ -21,11 +21,12 @@ export type Character = {
 
 export type State = {
   characters: Character[];
-  filters: { byName: string };
+  filter: string;
   favoritesIds: number[];
   favoriteCharacters: Character[];
   isLoading: boolean;
-  page: { current: number; total: number };
+  currentPage: number;
+  pagesTotal: number;
 };
 
 export type Action = {

@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
+import { addFavoriteAction, removeFavoriteAction } from "../../redux/actions";
+import { useAppSelector } from "../../redux/hooks";
 import BotaoFavorito from "../botoes/botao-favorito.componente";
 import "./card-personagem.css";
-import { addFavoriteAction, removeFavoriteAction } from "../../redux/actions";
-import { useSelector } from "react-redux";
+import { Character } from "../../redux/reducers/types";
 
 /**
  * Card para cada personagem dentro da grade de personagem.
@@ -12,13 +13,18 @@ import { useSelector } from "react-redux";
  *
  * @returns Elemento JSX
  */
-const CardPersonagem = ({ personagem }) => {
+
+type PropTypes = {
+  personagem: Character;
+};
+
+const CardPersonagem = ({ personagem }: PropTypes) => {
   const dispatch = useDispatch();
 
-  const { favoritesIds } = useSelector((store) => store.personagem);
+  const { favoritesIds } = useAppSelector((store) => store.personagem);
 
   const index = favoritesIds.indexOf(personagem.id);
-  let isFavorito = null;
+  let isFavorito: boolean | null = null;
   index < 0 ? (isFavorito = false) : (isFavorito = true);
 
   function toggleFavorite() {

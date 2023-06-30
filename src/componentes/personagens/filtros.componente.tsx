@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { addFilterAction } from "../../redux/actions";
+import { useAppSelector } from "../../redux/hooks";
 import "./filtros.css";
-import { useSelector } from "react-redux";
 
 const Filtros = () => {
   const dispatch = useDispatch();
 
-  const { filters } = useSelector((store) => store.personagem);
+  const { filter } = useAppSelector((store) => store.personagem);
 
-  function setFilter(e) {
+  function setFilter(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(addFilterAction(e.target.value));
   }
 
@@ -19,7 +19,7 @@ const Filtros = () => {
         type="text"
         placeholder="Rick, Morty, Beth, Alien, ...etc"
         name="nome"
-        value={filters.byName}
+        value={filter}
         onChange={(e) => setFilter(e)}
       />
     </div>

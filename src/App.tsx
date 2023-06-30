@@ -9,24 +9,22 @@ import { store } from "./redux/store";
 
 function App() {
   return (
-    <Provider store={store}>
-      <div className="App">
-        <Cabecalho />
-        <Routes>
-          <Route
-            path="/"
-            // element={
-            //   <Navigate to={`personagens/1`} replace />
-            // }
-            element={<PaginaInicio />}
-          />
-          {/* <PaginaInicio />*/}
-          {/* <Route path={`personagens/:pageNumber`} element={<PaginaInicio />} /> */}
-          <Route path="favoritos" element={<PaginaFavoritos />} />
-          <Route path="detalhe" element={<PaginaDetalhe />} />
-        </Routes>
-      </div>
-    </Provider>
+    <div className="App">
+      <Cabecalho />
+      <Routes>
+        <Route
+          path="/"
+          // element={
+          //   <Navigate to={`personagens/1`} replace />
+          // }
+          element={<PaginaInicio />}
+        />
+        {/* <PaginaInicio />*/}
+        {/* <Route path={`personagens/:pageNumber`} element={<PaginaInicio />} /> */}
+        <Route path="favoritos" element={<PaginaFavoritos />} />
+        <Route path="detalhe" element={<PaginaDetalhe />} />
+      </Routes>
+    </div>
   );
 }
 

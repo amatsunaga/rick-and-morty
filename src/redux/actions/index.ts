@@ -80,11 +80,11 @@ export const fetchCharacters = (page: number) => {
   };
 };
 
-export const fetchFiltered = (filters: string) => {
+export const fetchFiltered = (filter: string) => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     try {
       const response = await axios.get(
-        `https://rickandmortyapi.com/api/character/?name=${filters}`
+        `https://rickandmortyapi.com/api/character/?name=${filter}`
       );
 
       dispatch(getFilteredCharactersAction(response.data, null));
@@ -94,7 +94,7 @@ export const fetchFiltered = (filters: string) => {
   };
 };
 
-export const fetchFavorites = (favoritesIds: string) => {
+export const fetchFavorites = (favoritesIds: string | number[]) => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     if (favoritesIds.length > 0) {
       const response = await axios.get(

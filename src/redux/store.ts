@@ -1,10 +1,9 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  combineReducers,
+  configureStore
+} from "@reduxjs/toolkit";
 
 // Importamos applyMiddleware do Redux, para poder adicionar Thunk ou Saga como Middleware
-import {
-  TypedUseSelectorHook,
-  useSelector as useReduxSelector,
-} from "react-redux";
 import thunk from "redux-thunk";
 import { personagemReducer } from "./reducers/personagemReducer";
 
@@ -13,7 +12,13 @@ const rootReducer = combineReducers({
 });
 
 // Tipamos o hook useSelector
-export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+// export const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
+
+// export const store = configureStore({
+//   reducer: {
+//     personagem: personagemReducer,
+//   },
+// });
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -25,7 +30,7 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-// export const useAppDispatch: () => AppDispatch = useDispatch
+// export type AppThunkDispatch = ThunkDispatch<RootState, void, Action<string>>;
 
 // export type AppThunk<ReturnType = void> = ThunkAction<
 //   ReturnType,

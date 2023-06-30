@@ -10,7 +10,13 @@ import "./botao-favorito.css";
  *
  * @returns Elemento JSX
  */
-const BotaoFavorito = ({ isFavorito, onClick }) => {
+
+type PropTypes = {
+  isFavorito: boolean;
+  onClick: () => void;
+};
+
+const BotaoFavorito = ({ isFavorito, onClick }: PropTypes) => {
   const src = isFavorito ? starFull : starEmpty;
 
   return (
