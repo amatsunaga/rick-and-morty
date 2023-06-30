@@ -1,15 +1,17 @@
-const INITIAL_STATE = {
+import { Action, State } from "./types";
+
+const INITIAL_STATE: State = {
   characters: [],
   filters: { byName: "" },
   favoritesIds: localStorage.getItem("favoritos")
-    ? JSON.parse(localStorage.getItem("favoritos"))
+    ? JSON.parse(localStorage.getItem("favoritos") || "")
     : [],
   favoriteCharacters: [],
   isLoading: true,
-  page: { current: 1, total: null },
+  page: { current: 1, total: 1 },
 };
 
-export function personagemReducer(state = INITIAL_STATE, action) {
+export function personagemReducer(state = INITIAL_STATE, action: Action) {
   const newState = { ...state };
   const newfavoritesIds = newState.favoritesIds;
   const newFavoriteCharacters = newState.favoriteCharacters;
@@ -17,6 +19,8 @@ export function personagemReducer(state = INITIAL_STATE, action) {
 
   switch (action.type) {
     case "GET_CHARACTERS": {
+      // window.location.href = `/personagens/${newState.page.current}` ;
+
       return {
         ...state,
         characters: [...action.payload.results],
@@ -59,7 +63,7 @@ export function personagemReducer(state = INITIAL_STATE, action) {
     }
 
     case "ADD_FAVORITE": {
-      newfavoritesIds.push(action.id);
+      newfavoritesIds.push(action.payload);
       localStorage.setItem("favoritos", JSON.stringify(newfavoritesIds));
       return {
         ...newState,

@@ -1,6 +1,9 @@
 import axios from "axios";
+import { AnyAction } from "redux";
+import { ThunkDispatch } from "redux-thunk";
+import { Character } from "../reducers/types";
 
-export function getAllCharactersAction(payload) {
+export function getAllCharactersAction(payload: {}) {
   // console.log("payload:", payload);
 
   return {
@@ -9,14 +12,17 @@ export function getAllCharactersAction(payload) {
   };
 }
 
-export function getFilteredCharactersAction(filteredCharacters, error) {
+export function getFilteredCharactersAction(
+  filteredCharacters: Character[],
+  error: unknown
+) {
   return {
     type: "GET_FILTERED",
     payload: { filteredCharacters, error },
   };
 }
 
-export function addFilterAction(byName) {
+export function addFilterAction(byName: string) {
   return {
     type: "ADD_FILTER",
     payload: { byName },
@@ -29,21 +35,21 @@ export function removeFilterAction() {
   };
 }
 
-export function getFavoriteCharactersAction(payload) {
+export function getFavoriteCharactersAction(payload: Character[]) {
   return {
     type: "GET_FAVORITES",
     payload,
   };
 }
 
-export function addFavoriteAction(id) {
+export function addFavoriteAction(payload: number) {
   return {
     type: "ADD_FAVORITE",
-    id,
+    payload,
   };
 }
 
-export function removeFavoriteAction(index, personagemId) {
+export function removeFavoriteAction(index: number, personagemId: number) {
   return {
     type: "REMOVE_FAVORITE",
     payload: { index, personagemId },
@@ -56,15 +62,15 @@ export function removeAllFavoritesAction() {
   };
 }
 
-export function setCurrentPageAction(payload) {
+export function setCurrentPageAction(payload: number) {
   return {
     type: "SET_CURRENT_PAGE",
     payload,
   };
 }
 
-export const fetchCharacters = (page) => {
-  return async (dispatch) => {
+export const fetchCharacters = (page: number) => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     const response = await axios.get(
       // `https://rickandmortyapi.com/api/character/?page=2`
       `https://rickandmortyapi.com/api/character/?page=${page}`
@@ -74,8 +80,8 @@ export const fetchCharacters = (page) => {
   };
 };
 
-export const fetchFiltered = (filters) => {
-  return async (dispatch) => {
+export const fetchFiltered = (filters: string) => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     try {
       const response = await axios.get(
         `https://rickandmortyapi.com/api/character/?name=${filters}`
@@ -88,8 +94,8 @@ export const fetchFiltered = (filters) => {
   };
 };
 
-export const fetchFavorites = (favoritesIds) => {
-  return async (dispatch) => {
+export const fetchFavorites = (favoritesIds: string) => {
+  return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     if (favoritesIds.length > 0) {
       const response = await axios.get(
         `https://rickandmortyapi.com/api/character/${favoritesIds}`

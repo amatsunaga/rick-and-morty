@@ -1,13 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Paginacao from "../componentes/paginacao/paginacao.componente";
 import Filtros from "../componentes/personagens/filtros.componente";
 import GradePersonagens from "../componentes/personagens/grade-personagens.componente";
+import { useAppDispatch } from "../hooks/useAppDispatch";
 import {
   fetchCharacters,
   fetchFiltered,
   removeFilterAction,
 } from "../redux/actions";
+import { RootState } from "../redux/store";
 
 /**
  * Esta é a página principal. Aqui você deve ver o painel de filtro junto com a grade de personagens.
@@ -18,11 +20,18 @@ import {
  * @returns Página inicio
  */
 const PaginaInicio = () => {
-  const dispatch = useDispatch();
+  // console.log(JSON.parse(localStorage.getItem("favoritos")));
 
-  const { characters, filters, page } = useSelector(
-    (store) => store.personagem
-  );
+  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
+
+  const {
+    characters,
+    filters,
+    page
+  } = useSelector((store: RootState) => store.personagem);
+
+  // console.log(filters.byName );
 
   function filterCharacters() {
     dispatch(fetchFiltered(filters.byName));
@@ -30,6 +39,7 @@ const PaginaInicio = () => {
 
   function getCharacters() {
     dispatch(fetchCharacters(page.current));
+    // dispatch(fetchCharacters(1));
   }
 
   function clearFilters() {
@@ -43,7 +53,6 @@ const PaginaInicio = () => {
       getCharacters();
     }
   }, [filters]);
-
 
   // Apenas console - APAGAR
   // useEffect(() => {
