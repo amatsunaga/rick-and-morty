@@ -77,7 +77,7 @@ export function personagemReducer(state = INITIAL_STATE, action: Action) {
       );
       localStorage.setItem("favoritos", JSON.stringify(newfavoritesIds));
       return {
-        ...newState,
+        ...state,
         favoriteCharacters: editedFavorites,
       };
     }

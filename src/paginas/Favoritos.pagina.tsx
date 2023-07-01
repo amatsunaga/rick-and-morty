@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
  * Uso:
  * ``` <PaginaFavoritos /> ```
  *
- * @returns Página de favoritos
+ * @returns {JSX.Element}
  */
 const PaginaFavoritos = () => {
   const dispatch = useAppDispatch();

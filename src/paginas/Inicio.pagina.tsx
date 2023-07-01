@@ -16,18 +16,14 @@ import { RootState } from "../redux/store";
  * Uso:
  * ``` <PaginaInicio /> ```
  *
- * @returns Página inicio
+ * @returns {JSX.Element}
  */
 const PaginaInicio = () => {
-  // console.log(JSON.parse(localStorage.getItem("favoritos")));
-
   const dispatch = useAppDispatch();
 
-  const { characters, filter, currentPage, pagesTotal } = useAppSelector(
+  const { characters, filter, currentPage } = useAppSelector(
     (store: RootState) => store.personagem
   );
-
-  // console.log(filters.byName );
 
   function filterCharacters() {
     dispatch(fetchFiltered(filter));
@@ -35,7 +31,6 @@ const PaginaInicio = () => {
 
   function getCharacters() {
     dispatch(fetchCharacters(currentPage));
-    // dispatch(fetchCharacters(1));
   }
 
   function clearFilters() {
@@ -49,11 +44,6 @@ const PaginaInicio = () => {
       getCharacters();
     }
   }, [filter]);
-
-  // Apenas console - APAGAR
-  // useEffect(() => {
-  //   console.log("getCharacters():", getCharacters());
-  // }, []);
 
   const filterNotFound =
     "Não foram encontrados personagens com os filtros selecionados";

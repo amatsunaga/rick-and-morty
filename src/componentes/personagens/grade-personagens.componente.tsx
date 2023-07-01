@@ -5,10 +5,6 @@ import "./grade-personagem.css";
 
 /**
  * Grade de personagens para a página inicial
- *
- * Você precisará adicionar as funções necessárias para exibir e paginar os personagens
- *
- *
  * @returns Elemento JSX
  */
 

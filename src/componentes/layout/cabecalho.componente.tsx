@@ -33,9 +33,6 @@ const Cabecalho = () => {
             <li>
               <Link to="/favoritos">Favoritos</Link>
             </li>
-            <li>
-              <Link to="/detalhe">Detalhe</Link>
-            </li>
           </ul>
         </nav>
       </div>

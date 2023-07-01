@@ -7,10 +7,6 @@ import { Character } from "../../redux/reducers/types";
 
 /**
  * Card para cada personagem dentro da grade de personagem.
- *
- * Você precisará adicionar as propriedades necessárias para exibir os dados dos personagens
- *
- *
  * @returns Elemento JSX
  */
 

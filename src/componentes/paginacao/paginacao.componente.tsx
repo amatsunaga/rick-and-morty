@@ -4,11 +4,7 @@ import "./paginacao.css";
 
 /**
  * Componente que contém os botões para paginar
- *
- * Você deve adicionar as propriedades necessárias para que funcione corretamente
- *
- *
- * @returns Elemento JSX
+ * @returns {JSX.Element}
  */
 const Paginacao = () => {
   const dispatch = useAppDispatch();
@@ -18,32 +14,17 @@ const Paginacao = () => {
   );
 
   function goToPreviousPage() {
-    console.log(currentPage);
-
     if (currentPage > 1) {
       dispatch(fetchCharacters(currentPage - 1));
       dispatch(setCurrentPageAction(currentPage - 1));
     }
-
-    // Corrigir paginação com filtro
-    // if (filters.byName) {
-    //   dispatch(removeFilterAction());
-    // }
   }
 
   function goToNextPage() {
-    console.log(currentPage);
-    console.log(pagesTotal);
-
     if (currentPage < pagesTotal) {
       dispatch(fetchCharacters(currentPage + 1));
       dispatch(setCurrentPageAction(currentPage + 1));
     }
-
-    // Corrigir paginação com filtro
-    // if (filters.byName) {
-    //   dispatch(fetchFiltered(filters.byName));
-    // }
   }
 
   return (

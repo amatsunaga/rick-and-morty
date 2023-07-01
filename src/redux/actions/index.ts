@@ -4,8 +4,6 @@ import { ThunkDispatch } from "redux-thunk";
 import { Character } from "../reducers/types";
 
 export function getAllCharactersAction(payload: {}) {
-  // console.log("payload:", payload);
-
   return {
     type: "GET_CHARACTERS",
     payload,
@@ -72,7 +70,6 @@ export function setCurrentPageAction(payload: number) {
 export const fetchCharacters = (page: number) => {
   return async (dispatch: ThunkDispatch<{}, {}, AnyAction>) => {
     const response = await axios.get(
-      // `https://rickandmortyapi.com/api/character/?page=2`
       `https://rickandmortyapi.com/api/character/?page=${page}`
     );
 
